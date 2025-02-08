@@ -26,7 +26,7 @@ export default function TaskList({ initialTasks }: { initialTasks: Task[] }) {
       setTasks(tasks.map((task) => (task._id?.toString() === id ? { ...task, completed } : task)))
       router.refresh()
       toast.success("Task status updated successfully")
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to update task")
     }
   }

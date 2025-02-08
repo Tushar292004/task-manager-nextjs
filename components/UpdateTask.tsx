@@ -51,7 +51,7 @@ export default function UpdateTask({ task, onTaskUpdated }: TaskFormProps) {
             toast.success("Task updated successfully");
     
             onTaskUpdated({ ...updatedTask, _id: task._id }); // Update the task in UI
-        } catch (error) {
+        } catch (_error) {
             toast.error("Failed to update task");
         }
     };

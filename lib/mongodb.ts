@@ -10,7 +10,7 @@ const options = {}
 let client
 let clientPromise: Promise<MongoClient>
 client = new MongoClient(uri, options)
-  clientPromise = client.connect()
+clientPromise = client.connect()
 
 
 export default clientPromise

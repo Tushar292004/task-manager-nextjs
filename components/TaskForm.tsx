@@ -38,7 +38,7 @@ export default function TaskForm({ onTaskAdded }: TaskFormProps) {
       router.refresh()
       toast.success("Task created successfully")
       onTaskAdded({ ...newTask, _id: result.id })
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to create task")
     }
   }

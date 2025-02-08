@@ -8,7 +8,7 @@ export default async function Home() {
   const tasks: Task[] = await getTasks()
 
   return (
-    <main className="min-h-screen  text-white flex flex-col justify-between">
+    <main className="min-h-screen text-white flex flex-col justify-between">
       <div className=" mb-4 border-b w-full p-4 px-8 mx-auto flex justify-between items-center align-middle">
         <h1 className="text-3xl text-center">
           Task Management
