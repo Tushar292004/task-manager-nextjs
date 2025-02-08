@@ -13,7 +13,7 @@ export default async function Home() {
         <h1 className="text-3xl text-center">
           Task Management
         </h1>
-        <Github />
+        <Link  href="https://www.github.com/Tushar292004"><Github /></Link>
       </div>
       <TaskList initialTasks={tasks} />
       <div className=" text-2xl  border-t p-4 px-8 flex  justify-center items-center">Made by <Link href="https://www.linkedin.com/in/TusharChandak29/" target="_blank">: Tushar Chandak </Link></div>
