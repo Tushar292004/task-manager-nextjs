@@ -5,12 +5,14 @@ import clientPromise from "../lib/mongodb"
 import type { Task, ServerTask } from "../lib/models/Task"
 import { ObjectId } from "mongodb"
 
+//This will give us the array of task "eventually {promise}"
 export async function getTasks(): Promise<Task[]> {
   try {
     const client = await clientPromise
     const collection = client.db().collection<ServerTask>("tasks")
     const serverTasks = await collection.find({}).sort({ dueDate: 1 }).toArray()
 
+    //returning the array of tasks
     return serverTasks.map((task) => ({
       ...task,
       _id: task._id.toString(),
@@ -22,6 +24,7 @@ export async function getTasks(): Promise<Task[]> {
   }
 }
 
+// create task but omit _id of task from interface
 export async function createTask(task: Omit<Task, "_id">) {
   try {
     const client = await clientPromise

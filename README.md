@@ -17,7 +17,7 @@ This is a simple Task Management application built with Next.js, using Server Ac
 ## Setup Instructions
 1. Clone the repository:
 2. Open Termnilnal and cd <application-folder>
-3. Run `npm install` to install dependencies
+3. Run `npm install --legacy-peer-deps` or `npm install --force` to install dependencies
 4. Run `npm run dev`
 
 ## NextJS Server Action Functions 
