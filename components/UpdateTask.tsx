@@ -9,6 +9,10 @@ import { Textarea } from "@/components/ui/textarea"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { toast } from "react-hot-toast"
 import type { Task } from "@/lib/models/Task"
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
+
 
 interface TaskFormProps {
     task: Task;
@@ -30,7 +34,7 @@ export default function UpdateTask({ task, onTaskUpdated }: TaskFormProps) {
             setDueDate(task.dueDate.split("T")[0]); // Format to YYYY-MM-DD
         }
     }, [task]);
-    
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
@@ -38,26 +42,26 @@ export default function UpdateTask({ task, onTaskUpdated }: TaskFormProps) {
                 title,
                 description,
                 dueDate: new Date(dueDate).toISOString(),
-                completed: task.completed, 
+                completed: task.completed,
             };
-    
-            await editTask(task._id, updatedTask); 
-    
+
+            await editTask(task._id, updatedTask);
+
             setTitle("");
             setDescription("");
             setDueDate("");
             setIsOpen(false);
             router.refresh();
             toast.success("Task updated successfully");
-    
+
             onTaskUpdated({ ...updatedTask, _id: task._id }); // Update the task in UI
         } catch (error) {
             console.error("Error:", error);
             toast.error("Failed to update task");
         }
     };
-    
-    
+
+
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -89,12 +93,13 @@ export default function UpdateTask({ task, onTaskUpdated }: TaskFormProps) {
                         placeholder="New description"
                         className=""
                     />
-                    <Input
-                        type="date"
-                        value={dueDate}
-                        onChange={(e) => setDueDate(e.target.value)}
-                        required
-                        className="bg-white text-black "
+
+                    <DatePicker
+                        selected={dueDate ? new Date(dueDate) : null}
+                        onChange={(date) => setDueDate(date ? format(date, "yyyy-MM-dd") : "")}
+                        dateFormat="dd-MM-yyyy"
+                        placeholderText="DD-MM-YYYY"
+                        className=" text-white bg-transparent border p-2 w-full rounded-md cursor-pointer"
                     />
                     <Button type="submit" variant="outline" className="w-full">
                         Update Task

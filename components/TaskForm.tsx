@@ -9,6 +9,10 @@ import { Textarea } from "@/components/ui/textarea"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { toast } from "react-hot-toast"
 import type { Task } from "@/lib/models/Task"
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
+
 
 interface TaskFormProps {
   onTaskAdded: (task: Task) => void
@@ -17,7 +21,7 @@ interface TaskFormProps {
 export default function TaskForm({ onTaskAdded }: TaskFormProps) {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
-  const [dueDate, setDueDate] = useState("")
+  const [dueDate, setDueDate] = useState("");
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
 
@@ -68,16 +72,14 @@ export default function TaskForm({ onTaskAdded }: TaskFormProps) {
             placeholder="Task description"
             className=""
           />
-          <Input
-            type="date"
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-            required
-            className="bg-white text-black "
-            placeholder="Due Date"
-
+          <DatePicker
+            selected={dueDate ? new Date(dueDate) : null}
+            onChange={(date) => setDueDate(date ? format(date, "yyyy-MM-dd") : "")}
+            dateFormat="dd-MM-yyyy"
+            placeholderText="DD-MM-YYYY"
+            className=" text-white bg-transparent border p-2 w-full rounded-md cursor-pointer"
           />
-          <Button type="submit"  variant="outline" className="w-full">
+          <Button type="submit" variant="outline" className="w-full">
             Add Task
           </Button>
         </form>
