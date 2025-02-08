@@ -26,7 +26,8 @@ export default function TaskList({ initialTasks }: { initialTasks: Task[] }) {
       setTasks(tasks.map((task) => (task._id?.toString() === id ? { ...task, completed } : task)))
       router.refresh()
       toast.success("Task status updated successfully")
-    } catch (_error) {
+    } catch (error) {
+      console.error("Error:", error);
       toast.error("Failed to update task")
     }
   }
@@ -38,6 +39,7 @@ export default function TaskList({ initialTasks }: { initialTasks: Task[] }) {
       router.refresh()
       toast.success("Task deleted successfully")
     } catch (error) {
+      console.error("Error:", error);
       toast.error("Failed to delete task")
     }
   }

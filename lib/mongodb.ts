@@ -7,9 +7,8 @@ if (!process.env.MONGODB_URI) {
 const uri = process.env.MONGODB_URI
 const options = {}
 
-let client
+const client = new MongoClient(uri, options)
 let clientPromise: Promise<MongoClient>
-client = new MongoClient(uri, options)
 clientPromise = client.connect()
 
 
