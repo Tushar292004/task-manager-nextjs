@@ -74,6 +74,8 @@ export default function TaskForm({ onTaskAdded }: TaskFormProps) {
             onChange={(e) => setDueDate(e.target.value)}
             required
             className="bg-white text-black "
+            placeholder="Due Date"
+
           />
           <Button type="submit"  variant="outline" className="w-full">
             Add Task
