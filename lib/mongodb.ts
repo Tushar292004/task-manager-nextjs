@@ -8,8 +8,7 @@ const uri = process.env.MONGODB_URI
 const options = {}
 
 const client = new MongoClient(uri, options)
-let clientPromise: Promise<MongoClient>
-clientPromise = client.connect()
+const clientPromise = client.connect()
 
 
 export default clientPromise
