@@ -23,7 +23,6 @@ export default function TaskList({ initialTasks }: { initialTasks: Task[] }) {
   const handleComplete = async (id: string, completed: boolean) => {
     try {
       await updateTask(id, { completed })
-      setTasks(tasks.map((task) => (task._id?.toString() === id ? { ...task, completed } : task)))
       router.refresh()
       toast.success("Task status updated successfully")
     } catch (error) {
@@ -35,7 +34,6 @@ export default function TaskList({ initialTasks }: { initialTasks: Task[] }) {
   const handleDelete = async (id: string) => {
     try {
       await deleteTask(id)
-      setTasks(tasks.filter((task) => task._id?.toString() !== id))
       router.refresh()
       toast.success("Task deleted successfully")
     } catch (error) {

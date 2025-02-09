@@ -50,7 +50,7 @@ export async function updateTask(id: string, updates: Omit<Task, "dueDate" | "_i
     const client = await clientPromise
     const collection = client.db().collection("tasks")
 
-    //updatinh the task respective to that id and seting the new inputs
+    //updatinh the task status respective to that id and seting the new status
     await collection.updateOne(
       { _id: new ObjectId(id) },
       { $set: updates },
@@ -65,13 +65,16 @@ export async function updateTask(id: string, updates: Omit<Task, "dueDate" | "_i
   }
 }
 
+//For editing task description, title, duedate except id using combination of Partial and Omit typescript utility types
 export async function editTask(id: string, updatedFields: Partial<Omit<Task, "_id">>){
   try{
     const client = await clientPromise
     const collection = client.db().collection("tasks")
+
     if (!ObjectId.isValid(id)) {
       throw new Error("Invalid Task ID");
     }
+    //updatinh the task  respective to that id and seting the new inputs
     const result = await collection.updateOne(
       { _id: new ObjectId(id) },
       { $set: updatedFields }
@@ -88,13 +91,16 @@ export async function editTask(id: string, updatedFields: Partial<Omit<Task, "_i
   }
 }
 
-
-
+//Function to simple delete the task
 export async function deleteTask(id: string) {
   try {
     const client = await clientPromise
     const collection = client.db().collection("tasks")
+
+    //Deleting the task of the respective id
     await collection.deleteOne({ _id: new ObjectId(id) })
+
+    //to refresh the UI (ensures Next.js fetches updated data).
     revalidatePath("/")
     return { success: true, message: "Task deleted successfully" }
   } catch (error) {
