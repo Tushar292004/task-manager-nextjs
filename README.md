@@ -27,3 +27,6 @@ This is a simple Task Management application built with Next.js, using Server Ac
 - **editTask(id, updatedFields)** → Partially update a task.
 - **deleteTask(id)** → Delete a task from the database.
 
+[![Watch the video](https://img.youtube.com/vi/sPUYXGsRi1I/maxresdefault.jpg)](https://youtu.be/sPUYXGsRi1I)
+
+### [Demo and Explanation ](https://youtu.be/sPUYXGsRi1I)
