@@ -23,7 +23,7 @@ This is a simple Task Management application built with Next.js, using Server Ac
 ## NextJS Server Action Functions 
 - **getTasks()** → Fetch all tasks from the database.
 - **createTask(task)** → Insert a new task into the database.
-- **updateTask(id, updates)** → Update an existing task.
+- **updateTask(id, updates)** → Update an existing task completion status.
 - **editTask(id, updatedFields)** → Partially update a task.
 - **deleteTask(id)** → Delete a task from the database.
 
