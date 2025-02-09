@@ -24,15 +24,18 @@ export async function getTasks(): Promise<Task[]> {
   }
 }
 
-// create task but omit _id of task from interface
+// create task but with Typescript utility type Omit _id of task from interface
 export async function createTask(task: Omit<Task, "_id">) {
   try {
     const client = await clientPromise
     const collection = client.db().collection("tasks")
+
+    //adding new task to database
     const result = await collection.insertOne({
       ...task,
       dueDate: new Date(task.dueDate),
     })
+    //to refresh the UI (ensures Next.js fetches updated data).
     revalidatePath("/")
     return { success: true, message: "Task created successfully", id: result.insertedId.toString() }
   } catch (error) {
@@ -41,14 +44,19 @@ export async function createTask(task: Omit<Task, "_id">) {
   }
 }
 
-export async function updateTask(id: string, updates: Partial<Task>) {
+//For updating task status we use Omit typescript utility type to make other field omited. 
+export async function updateTask(id: string, updates: Omit<Task, "dueDate" | "_id" | "title" | "description">) {
   try {
     const client = await clientPromise
     const collection = client.db().collection("tasks")
+
+    //updatinh the task respective to that id and seting the new inputs
     await collection.updateOne(
       { _id: new ObjectId(id) },
-      { $set: updates.dueDate ? { ...updates, dueDate: new Date(updates.dueDate) } : updates },
+      { $set: updates },
     )
+
+    //to refresh the UI (ensures Next.js fetches updated data).
     revalidatePath("/")
     return { success: true, message: "Task updated successfully" }
   } catch (error) {
@@ -57,7 +65,7 @@ export async function updateTask(id: string, updates: Partial<Task>) {
   }
 }
 
-export async function editTask(id: string, updatedFields: Partial<{ title: string; description: string; dueDate: string; completed: boolean }>){
+export async function editTask(id: string, updatedFields: Partial<Omit<Task, "_id">>){
   try{
     const client = await clientPromise
     const collection = client.db().collection("tasks")
@@ -79,6 +87,8 @@ export async function editTask(id: string, updatedFields: Partial<{ title: strin
     throw new Error("Failed to update task");
   }
 }
+
+
 
 export async function deleteTask(id: string) {
   try {
